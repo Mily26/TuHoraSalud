@@ -2,13 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/registro"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo3">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/imgPerfil"
@@ -23,6 +24,8 @@
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#40FFFFFF"
             android:hint="Nombre"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -32,6 +35,8 @@
             android:id="@+id/etApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#40FFFFFF"
             android:hint="Apellido"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -41,6 +46,8 @@
             android:id="@+id/etCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#40FFFFFF"
             android:hint="Correo"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
@@ -50,35 +57,25 @@
             android:id="@+id/tvFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de Nacimiento"
-            android:padding="12dp"
-            android:minHeight="48dp"
-            android:background="#EEEEEE"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
+            android:background="#40FFFFFF"
+            android:clickable="true"
             android:focusable="true"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/btnCrear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Crear"
+            android:gravity="center_vertical"
+            android:hint="Fecha de Nacimiento"
             android:minHeight="48dp"
             android:padding="12dp"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btnSalir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Salir"
+            android:backgroundTint="#278EF5"
             android:minHeight="48dp"
             android:padding="12dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#F44336"
+            android:text="Registrarse"
             android:textColor="#FFFFFF" />
+
     </LinearLayout>
 </ScrollView>
