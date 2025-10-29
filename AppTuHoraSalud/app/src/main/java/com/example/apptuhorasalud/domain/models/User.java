@@ -1,20 +1,24 @@
 package com.example.apptuhorasalud.domain.models;
 
-import java.util.Date;
-
 public class User {
-    private Integer id;
-    private String name;
-    private String lastName;
-    private String email;
-    private Date dateOfBirth;
 
-    public User(Integer id, String name, String lastName, String email, Date dateOfBirth) {
+    private Integer id;
+    private int document;
+    private String name;
+    private String lastname;
+    private String birthDate;
+    private String email;
+    private String password;
+
+
+    public User(Integer id, int document, String name, String lastname, String birthDate, String email, String password) {
         this.id = id;
+        this.document = document;
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
+        this.birthDate = birthDate;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -25,6 +29,14 @@ public class User {
         this.id = id;
     }
 
+    public int getDocument() {
+        return document;
+    }
+
+    public void setDocument(int document) {
+        this.document = document;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,12 +45,20 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getEmail() {
@@ -49,11 +69,12 @@ public class User {
         this.email = email;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }

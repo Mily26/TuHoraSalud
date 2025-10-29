@@ -4,55 +4,50 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity(tableName = "users")
 public class UserEntity {
+
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    public Integer id;
+
+    @ColumnInfo(name = "document")
+    private int document;
 
     @ColumnInfo(name = "name")
     private String name;
-
-    @ColumnInfo(name = "last_name")
-    private String lastName;
+    @ColumnInfo(name = "lastname")
+    private String lastname;
+    @ColumnInfo(name = "birth_date")
+    private String birthDate;
 
     @ColumnInfo(name = "email")
     private String email;
 
-    @ColumnInfo(name = "date_of_birth")
-    private Date dateOfBirth;
+    @ColumnInfo(name = "password")
+    private String password;
 
-    public UserEntity(Integer id, String name, String lastName, String email, Date dateOfBirth) {
+
+    public UserEntity(){
+
+    }
+
+    public UserEntity(Integer id, int document, String name, String lastname, String birthDate, String email, String password) {
         this.id = id;
+        this.document = document;
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
+        this.birthDate = birthDate;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
+        this.password = password;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -63,11 +58,44 @@ public class UserEntity {
         this.email = email;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDocument() {
+        return document;
+    }
+
+    public void setDocument(int document) {
+        this.document = document;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
+

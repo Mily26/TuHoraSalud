@@ -22,7 +22,7 @@
             android:src="@drawable/logo2" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCorreo"
+            android:id="@+id/layoutCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo"
@@ -31,7 +31,7 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtCorreo"
+                android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -39,11 +39,8 @@
                 android:padding="12dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilContraseña"
+            android:id="@+id/layoutContraseña"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
@@ -53,7 +50,7 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtContraseña"
+                android:id="@+id/inputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -61,9 +58,8 @@
                 android:padding="12dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <Button
-            android:id="@+id/btnRegistrarse"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ingresar"
@@ -74,7 +70,7 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/tvRecuperar"
+            android:id="@+id/btnRecover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Olvido su contraseña?"
@@ -103,7 +99,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/btnRegistrar"
+                android:id="@+id/btnRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registrar ahora"
