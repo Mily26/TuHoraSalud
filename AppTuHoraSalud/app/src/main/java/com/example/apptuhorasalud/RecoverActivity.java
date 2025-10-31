@@ -85,6 +85,7 @@ public class RecoverActivity extends AppCompatActivity {
                         FormUtils.showSuccess(this, "Contraseña actualizada correctamente");
                         LinearLayout passwordSection = findViewById(R.id.passwordSection);
                         passwordSection.setVisibility(View.GONE);
+                        finish();
                     }))
                     .exceptionally(e -> {
                         Log.e("RECOVERY", "Error al actualizar contraseña", e);

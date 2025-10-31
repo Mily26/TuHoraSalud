@@ -129,12 +129,20 @@ public class RegisterActivity extends AppCompatActivity {
         new Thread(() -> {
             AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DB_NAME).build();
             IUserRepository repo = new UsuarioRepositoryImpl(db.usuarioDao());
+            User existingUser = repo.getByEmailUser(user.getEmail()).join();
+            if (existingUser != null) {
+                runOnUiThread(() -> FormUtils.showError(this, "El usuario ya existe", inputEmail));
+                return;
+            }
+
             AddUser useCase = new AddUser(repo);
 
             useCase.execute(user);
             Log.d("DB", "Usuario guardado correctamente: " + user.getName() + " - " + user.getEmail());
 
-            runOnUiThread(() -> FormUtils.showSuccess(this, "Usuario guardado correctamente"));
+            runOnUiThread(() -> {FormUtils.showSuccess(this, "Usuario guardado correctamente");
+                finish();
+            });
         }).start();
     }
 
