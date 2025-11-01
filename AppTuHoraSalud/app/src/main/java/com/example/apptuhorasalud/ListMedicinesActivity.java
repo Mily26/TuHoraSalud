@@ -47,7 +47,9 @@ public class ListMedicinesActivity extends AppCompatActivity {
         recyclerViewMedicines.setLayoutManager(new LinearLayoutManager(this));
 
         medicineList = new ArrayList<>();
-        medicineAdapter = new MedicineAdapter(medicineList);
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DB_NAME).build();
+        IMedicineRepository repo = new MedicineRepositoryImpl(db.medicineDao());
+        medicineAdapter = new MedicineAdapter(medicineList, repo);
         recyclerViewMedicines.setAdapter(medicineAdapter);
 
         // Get userId from intent

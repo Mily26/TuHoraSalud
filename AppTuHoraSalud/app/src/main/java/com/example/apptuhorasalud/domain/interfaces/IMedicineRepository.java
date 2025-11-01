@@ -11,4 +11,5 @@ public interface IMedicineRepository {
     CompletableFuture<Void> deleteMedicine(int medicineId);
     CompletableFuture<List<Medicine>> getMedicinesByUserId(int userId);
     CompletableFuture<List<Medicine>> getMedicinesByNameAndUserId(String name, int userId);
+    CompletableFuture<Void> softDeleteMedicine(Medicine medicine);
 }

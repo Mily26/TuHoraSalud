@@ -44,6 +44,11 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
         }, executor);
     }
 
+    public CompletableFuture<Void> softDeleteMedicine(Medicine medicine) {
+        medicine.setDeleted(true);
+        return this.updateMedicine(medicine);
+    }
+
     @Override
     public CompletableFuture<List<Medicine>> getMedicinesByUserId(int userId) {
         return CompletableFuture.supplyAsync(() -> {

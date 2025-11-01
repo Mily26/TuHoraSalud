@@ -18,7 +18,7 @@ public interface MedicineDao {
     @Delete
     void delete(MedicineEntity medicineEntity);
 
-    @Query("SELECT * FROM medicines where userId = :userId")
+    @Query("SELECT * FROM medicines where userId = :userId and isDeleted = 0")
     List<MedicineEntity> getMedicinesByUserId(int userId);
     @Query("SELECT * FROM medicines where name = :name and userId = :userId")
     List<MedicineEntity> getMedicinesByNameAndUserId(String name, int userId);

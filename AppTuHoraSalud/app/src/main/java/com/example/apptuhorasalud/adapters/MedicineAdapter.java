@@ -7,16 +7,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
+
 import com.example.apptuhorasalud.R;
+import com.example.apptuhorasalud.domain.interfaces.IMedicineRepository;
 import com.example.apptuhorasalud.domain.models.Medicine;
+import com.example.apptuhorasalud.infrastructure.data.AppDatabase;
+import com.example.apptuhorasalud.infrastructure.repository.MedicineRepositoryImpl;
+
 import java.util.List;
 
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder> {
 
     private List<Medicine> medicineList;
+    private IMedicineRepository repo;
 
-    public MedicineAdapter(List<Medicine> medicineList) {
+
+    public MedicineAdapter(List<Medicine> medicineList, IMedicineRepository repo) {
         this.medicineList = medicineList;
+        this.repo = repo;
     }
 
     @NonNull
@@ -39,6 +48,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
 
         holder.btnDeleteMedicine.setOnClickListener(v -> {
             // Delete action will be implemented later
+            repo.softDeleteMedicine(medicine);
+            medicineList.remove(medicine);
+            notifyDataSetChanged();
         });
     }
 
