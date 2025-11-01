@@ -110,15 +110,16 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null && user.getName() != null) {
             Log.d("LOGIN", "Acceso exitoso: " + user.getEmail());
             FormUtils.showSuccess(this, "Bienvenido" + user.getName());
-            navigateToHome(user.getName());
+            navigateToHome(user.getName(), user.getId());
         } else {
             Log.d("LOGIN", "Credenciales incorrectas para: " + email);
             Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
         }
     }
-    private void navigateToHome(String nameUser) {
+    private void navigateToHome(String nameUser, int userId) {
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         intent.putExtra("nombreUsuario", nameUser);
+        intent.putExtra("idUsuario", userId);
         startActivity(intent);
         finish();
     }
