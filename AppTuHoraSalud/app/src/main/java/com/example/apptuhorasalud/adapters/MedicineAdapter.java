@@ -1,5 +1,7 @@
 package com.example.apptuhorasalud.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.apptuhorasalud.R;
+import com.example.apptuhorasalud.UpdateMedicineActivity;
 import com.example.apptuhorasalud.domain.interfaces.IMedicineRepository;
 import com.example.apptuhorasalud.domain.models.Medicine;
 import com.example.apptuhorasalud.infrastructure.data.AppDatabase;
@@ -41,9 +44,14 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         holder.tvMedicineName.setText(medicine.getName());
         holder.tvMedicineQuantity.setText("Cantidad: " + medicine.getQuantity());
 
-        // TODO: Implement update and delete functionality
         holder.btnUpdateMedicine.setOnClickListener(v -> {
-            // Update action will be implemented later
+            Context context = holder.itemView.getContext();
+            Intent intent = new Intent(context, UpdateMedicineActivity.class);
+            intent.putExtra("medicineId", medicine.getId());
+            intent.putExtra("medicineName", medicine.getName());
+            intent.putExtra("medicineQuantity", medicine.getQuantity());
+            intent.putExtra("idUsuario", medicine.getUserId());
+            context.startActivity(intent);
         });
 
         holder.btnDeleteMedicine.setOnClickListener(v -> {

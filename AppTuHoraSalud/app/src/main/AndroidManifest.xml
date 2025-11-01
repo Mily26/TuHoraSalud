@@ -35,6 +35,9 @@
         <activity
             android:name=".ListMedicinesActivity"
             android:exported="false" />
+        <activity
+            android:name=".UpdateMedicineActivity"
+            android:exported="false" />
 
     </application>
 

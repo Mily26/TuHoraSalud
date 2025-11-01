@@ -20,15 +20,17 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="Icono de medicina"
             android:src="@drawable/usuario" />
+
         <Button
             android:id="@+id/btnAddMedicine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="#278EF5"
             android:minHeight="48dp"
             android:text="Agregar medicina"
-            android:layout_gravity="center_horizontal"
             android:textColor="#FFFFFF" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMedicines"
