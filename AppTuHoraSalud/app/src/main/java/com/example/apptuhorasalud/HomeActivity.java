@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
         addMedicineButton = findViewById(R.id.buttonMedicine);
 
-        Intent intentMed = new Intent(this, InsertMedicineActivity.class);
+        Intent intentMed = new Intent(this, ListMedicinesActivity.class);
         intentMed.putExtra("idUsuario", idUsuario);
         addMedicineButton.setOnClickListener(v -> startActivity(intentMed));
     }
