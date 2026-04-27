@@ -1,7 +1,9 @@
 package com.example.apptuhorasalud;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
@@ -19,8 +21,7 @@ import com.example.apptuhorasalud.domain.interfaces.IUserRepository;
 import com.example.apptuhorasalud.infrastructure.data.AppDatabase;
 import com.example.apptuhorasalud.infrastructure.repository.UsuarioRepositoryImpl;
 import com.example.apptuhorasalud.utils.FormUtils;
-
-import org.xml.sax.Parser;
+import java.util.Calendar;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -51,10 +52,38 @@ public class RegisterActivity extends AppCompatActivity {
         inputConfirmPassword= findViewById(R.id.inputConfirmPassword);
         btnSaveUser = findViewById(R.id.btnSaveUser);
 
+        setupBirthDateFormatter();
         btnSaveUser.setOnClickListener(v -> onRegisterClick());
     }
 
     // methods
+    private void setupBirthDateFormatter() {
+        inputBirthDate.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isUpdating) return;
+                isUpdating = true;
+
+                String digits = s.toString().replaceAll("[^\\d]", "");
+                if (digits.length() > 8) digits = digits.substring(0, 8);
+
+                StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < digits.length(); i++) {
+                    if (i == 2 || i == 4) formatted.append('/');
+                    formatted.append(digits.charAt(i));
+                }
+
+                s.replace(0, s.length(), formatted.toString());
+                isUpdating = false;
+            }
+        });
+    }
+
     private void onRegisterClick() {
         getValues();
         if (!validateInput()) return;
@@ -111,8 +140,24 @@ public class RegisterActivity extends AppCompatActivity {
             FormUtils.showError(this, "Ingrese una fecha de nacimiento", inputBirthDate);
             return false;
         }
-        if (birthDate.length() != 8 || !birthDate.matches("\\d{8}")) {
-            FormUtils.showError(this, "La fecha debe tener 8 dígitos numéricos", inputBirthDate);
+        if (!birthDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            FormUtils.showError(this, "La fecha debe tener el formato DD/MM/AAAA", inputBirthDate);
+            return false;
+        }
+        int day   = Integer.parseInt(birthDate.substring(0, 2));
+        int month = Integer.parseInt(birthDate.substring(3, 5));
+        int year  = Integer.parseInt(birthDate.substring(6));
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        if (day < 1 || day > 31) {
+            FormUtils.showError(this, "El día debe estar entre 01 y 31", inputBirthDate);
+            return false;
+        }
+        if (month < 1 || month > 12) {
+            FormUtils.showError(this, "El mes debe estar entre 01 y 12", inputBirthDate);
+            return false;
+        }
+        if (year < 1900 || year > currentYear) {
+            FormUtils.showError(this, "Ingrese un año válido", inputBirthDate);
             return false;
         }
         if (!password.equals(confirmPassword)) {
