@@ -6,32 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E3F2FD"
+    android:padding="16dp"
     tools:context=".HomeActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvAlarmsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes recordatorios pendientes"
+        android:layout_marginTop="8dp"
+        android:text="Alarmas pendientes"
         android:textColor="#0D47A1"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonMedicine"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonMedicine"
+    <TextView
+        android:id="@+id/tvEmptyAlarms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="No tienes recordatorios pendientes"
+        android:textColor="#0D47A1"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlarmsTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAlarms"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonMedicine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlarmsTitle" />
+
+    <Button
+        android:id="@+id/buttonMedicine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#1976D2"
         android:text="Ver medicamentos"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAlarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#1976D2"
+        android:text="Nueva alarma"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
