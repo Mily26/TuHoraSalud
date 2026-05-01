@@ -38,6 +38,22 @@ public class AlarmScheduler {
         }
     }
 
+    public static void cancel(Context context, int alarmId) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (am == null) return;
+
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
+        PendingIntent pi = PendingIntent.getBroadcast(context, alarmId, intent, flags);
+        am.cancel(pi);
+        pi.cancel();
+    }
+
+    public static void reschedule(Context context, Alarm alarm) {
+        cancel(context, alarm.getId());
+        schedule(context, alarm);
+    }
+
     private static long nextTriggerMillis(int hour, int minute) {
         Calendar now = Calendar.getInstance();
         Calendar target = Calendar.getInstance();

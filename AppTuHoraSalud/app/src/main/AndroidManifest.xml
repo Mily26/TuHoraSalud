@@ -46,6 +46,9 @@
         <activity
             android:name=".InsertAlarmActivity"
             android:exported="false" />
+        <activity
+            android:name=".UpdateAlarmActivity"
+            android:exported="false" />
 
         <receiver
             android:name=".receivers.AlarmReceiver"

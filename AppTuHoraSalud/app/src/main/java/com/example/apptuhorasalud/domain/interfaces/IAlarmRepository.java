@@ -7,5 +7,6 @@ import java.util.concurrent.CompletableFuture;
 
 public interface IAlarmRepository {
     CompletableFuture<Long> addAlarm(Alarm alarm);
+    CompletableFuture<Void> updateAlarm(Alarm alarm);
     CompletableFuture<List<Alarm>> getAlarmsByUserId(int userId);
 }

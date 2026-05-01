@@ -27,6 +27,11 @@ public class AlarmRepositoryImpl implements IAlarmRepository {
     }
 
     @Override
+    public CompletableFuture<Void> updateAlarm(Alarm alarm) {
+        return CompletableFuture.runAsync(() -> dao.update(AlarmMapper.toEntity(alarm)), executor);
+    }
+
+    @Override
     public CompletableFuture<List<Alarm>> getAlarmsByUserId(int userId) {
         return CompletableFuture.supplyAsync(() -> {
             List<AlarmEntity> entities = dao.getAlarmsByUserId(userId);
