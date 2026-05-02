@@ -22,4 +22,7 @@ public interface AlarmDao {
 
     @Query("SELECT * FROM alarms WHERE userId = :userId AND isDeleted = 0")
     List<AlarmEntity> getAlarmsByUserId(int userId);
+
+    @Query("SELECT * FROM alarms WHERE isDeleted = 0 AND isActive = 1")
+    List<AlarmEntity> getAllActive();
 }
