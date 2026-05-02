@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import com.example.apptuhorasalud.domain.models.Alarm;
 import com.example.apptuhorasalud.receivers.AlarmReceiver;
@@ -12,6 +13,8 @@ import com.example.apptuhorasalud.receivers.AlarmReceiver;
 import java.util.Calendar;
 
 public class AlarmScheduler {
+
+    private static final String TAG = "AlarmScheduler";
 
     public static void schedule(Context context, Alarm alarm) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -30,11 +33,14 @@ public class AlarmScheduler {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (am.canScheduleExactAlarms()) {
                 am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi);
+                Log.d(TAG, "Alarma exacta programada id=" + alarm.getId() + " triggerAt=" + triggerAt);
             } else {
                 am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi);
+                Log.w(TAG, "Sin permiso de alarmas exactas, programada inexacta id=" + alarm.getId());
             }
         } else {
             am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi);
+            Log.d(TAG, "Alarma exacta programada id=" + alarm.getId() + " triggerAt=" + triggerAt);
         }
     }
 
