@@ -35,6 +35,7 @@ public class UpdateAlarmActivity extends AppCompatActivity {
     private int medicineId;
     private String medicineName;
     private int userId;
+    private boolean isActive;
 
     private static final String DB_NAME = "usuarios-db";
 
@@ -63,6 +64,7 @@ public class UpdateAlarmActivity extends AppCompatActivity {
         int currentHour = getIntent().getIntExtra("hour", 0);
         int currentMinute = getIntent().getIntExtra("minute", 0);
         userId = getIntent().getIntExtra("idUsuario", -1);
+        isActive = getIntent().getBooleanExtra("isActive", true);
 
         if (alarmId == -1 || userId == -1) {
             Toast.makeText(this, "Error: Datos incompletos", Toast.LENGTH_SHORT).show();
@@ -92,7 +94,7 @@ public class UpdateAlarmActivity extends AppCompatActivity {
             return;
         }
 
-        Alarm alarm = new Alarm(alarmId, medicineId, medicineName, dose, hour, minute, userId, false);
+        Alarm alarm = new Alarm(alarmId, medicineId, medicineName, dose, hour, minute, userId, false, isActive);
 
         new Thread(() -> {
             AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DB_NAME).build();
@@ -100,7 +102,11 @@ public class UpdateAlarmActivity extends AppCompatActivity {
             UpdateAlarm useCase = new UpdateAlarm(repo);
 
             useCase.execute(alarm).thenRun(() -> {
-                AlarmScheduler.reschedule(getApplicationContext(), alarm);
+                if (isActive) {
+                    AlarmScheduler.reschedule(getApplicationContext(), alarm);
+                } else {
+                    AlarmScheduler.cancel(getApplicationContext(), alarm.getId());
+                }
                 Log.d("DB", "Alarma reprogramada: " + alarm.getMedicineName() + " a las " + hour + ":" + minute);
 
                 runOnUiThread(() -> {

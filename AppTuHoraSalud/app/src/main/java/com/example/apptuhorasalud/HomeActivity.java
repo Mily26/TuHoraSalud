@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.apptuhorasalud.adapters.AlarmAdapter;
+import com.example.apptuhorasalud.application.useCase.Alarm.ToggleAlarm;
 import com.example.apptuhorasalud.domain.interfaces.IAlarmRepository;
 import com.example.apptuhorasalud.domain.models.Alarm;
 import com.example.apptuhorasalud.infrastructure.data.AppDatabase;
 import com.example.apptuhorasalud.infrastructure.repository.AlarmRepositoryImpl;
+import com.example.apptuhorasalud.utils.AlarmScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         tvEmptyAlarms = findViewById(R.id.tvEmptyAlarms);
 
         alarmList = new ArrayList<>();
-        alarmAdapter = new AlarmAdapter(alarmList);
+        alarmAdapter = new AlarmAdapter(alarmList, this::onAlarmToggle);
         recyclerViewAlarms.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAlarms.setAdapter(alarmAdapter);
 
@@ -101,6 +104,41 @@ public class HomeActivity extends AppCompatActivity {
                 }
             })).exceptionally(throwable -> {
                 Log.e("DB", "Error al cargar alarmas", throwable);
+                return null;
+            });
+        }).start();
+    }
+
+    private void onAlarmToggle(Alarm alarm) {
+        boolean newActive = !alarm.isActive();
+
+        new Thread(() -> {
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, DB_NAME).build();
+            IAlarmRepository repo = new AlarmRepositoryImpl(db.alarmDao());
+            ToggleAlarm useCase = new ToggleAlarm(repo);
+
+            useCase.execute(alarm.getId(), newActive).thenRun(() -> {
+                if (newActive) {
+                    alarm.setActive(true);
+                    AlarmScheduler.schedule(getApplicationContext(), alarm);
+                    Log.d("DB", "Alarma activada: " + alarm.getMedicineName());
+                } else {
+                    alarm.setActive(false);
+                    AlarmScheduler.cancel(getApplicationContext(), alarm.getId());
+                    Log.d("DB", "Alarma desactivada: " + alarm.getMedicineName());
+                }
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this,
+                            newActive ? "Alarma activada" : "Alarma desactivada",
+                            Toast.LENGTH_SHORT).show();
+                    alarmAdapter.notifyDataSetChanged();
+                });
+            }).exceptionally(throwable -> {
+                Log.e("DB", "Error al cambiar estado de alarma", throwable);
+                runOnUiThread(() -> Toast.makeText(this,
+                        "Error al cambiar el estado de la alarma",
+                        Toast.LENGTH_SHORT).show());
                 return null;
             });
         }).start();

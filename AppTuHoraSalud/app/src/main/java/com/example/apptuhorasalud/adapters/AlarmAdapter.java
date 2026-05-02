@@ -2,6 +2,7 @@ package com.example.apptuhorasalud.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,16 @@ import java.util.Locale;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
-    private List<Alarm> alarmList;
+    public interface OnAlarmToggleListener {
+        void onToggle(Alarm alarm);
+    }
 
-    public AlarmAdapter(List<Alarm> alarmList) {
+    private List<Alarm> alarmList;
+    private final OnAlarmToggleListener toggleListener;
+
+    public AlarmAdapter(List<Alarm> alarmList, OnAlarmToggleListener toggleListener) {
         this.alarmList = alarmList;
+        this.toggleListener = toggleListener;
     }
 
     @NonNull
@@ -40,6 +47,24 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         holder.tvAlarmDose.setText("Dosis: " + alarm.getDose());
         holder.tvAlarmTime.setText(String.format(Locale.getDefault(), "%02d:%02d", alarm.getHour(), alarm.getMinute()));
 
+        if (alarm.isActive()) {
+            holder.tvAlarmStatus.setText("Activa");
+            holder.tvAlarmStatus.setTextColor(Color.parseColor("#2E7D32"));
+            holder.btnToggleAlarm.setText("Desactivar");
+            holder.btnToggleAlarm.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#E53935")));
+        } else {
+            holder.tvAlarmStatus.setText("Inactiva");
+            holder.tvAlarmStatus.setTextColor(Color.parseColor("#B71C1C"));
+            holder.btnToggleAlarm.setText("Activar");
+            holder.btnToggleAlarm.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#4CAF50")));
+        }
+
+        holder.btnToggleAlarm.setOnClickListener(v -> {
+            if (toggleListener != null) {
+                toggleListener.onToggle(alarm);
+            }
+        });
+
         holder.btnUpdateAlarm.setOnClickListener(v -> {
             Context context = holder.itemView.getContext();
             Intent intent = new Intent(context, UpdateAlarmActivity.class);
@@ -50,6 +75,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             intent.putExtra("hour", alarm.getHour());
             intent.putExtra("minute", alarm.getMinute());
             intent.putExtra("idUsuario", alarm.getUserId());
+            intent.putExtra("isActive", alarm.isActive());
             context.startActivity(intent);
         });
     }
@@ -65,15 +91,17 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     }
 
     static class AlarmViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAlarmMedicine, tvAlarmDose, tvAlarmTime;
-        Button btnUpdateAlarm;
+        TextView tvAlarmMedicine, tvAlarmDose, tvAlarmTime, tvAlarmStatus;
+        Button btnUpdateAlarm, btnToggleAlarm;
 
         public AlarmViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAlarmMedicine = itemView.findViewById(R.id.tvAlarmMedicine);
             tvAlarmDose = itemView.findViewById(R.id.tvAlarmDose);
             tvAlarmTime = itemView.findViewById(R.id.tvAlarmTime);
+            tvAlarmStatus = itemView.findViewById(R.id.tvAlarmStatus);
             btnUpdateAlarm = itemView.findViewById(R.id.btnUpdateAlarm);
+            btnToggleAlarm = itemView.findViewById(R.id.btnToggleAlarm);
         }
     }
 }

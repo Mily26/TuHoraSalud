@@ -23,8 +23,10 @@ public class AlarmEntity {
     private int userId;
     @ColumnInfo(name = "isDeleted")
     private boolean isDeleted;
+    @ColumnInfo(name = "isActive", defaultValue = "1")
+    private boolean isActive;
 
-    public AlarmEntity(Long id, int medicineId, String medicineName, String dose, int hour, int minute, int userId, boolean isDeleted) {
+    public AlarmEntity(Long id, int medicineId, String medicineName, String dose, int hour, int minute, int userId, boolean isDeleted, boolean isActive) {
         this.id = id;
         this.medicineId = medicineId;
         this.medicineName = medicineName;
@@ -33,6 +35,7 @@ public class AlarmEntity {
         this.minute = minute;
         this.userId = userId;
         this.isDeleted = isDeleted;
+        this.isActive = isActive;
     }
 
     public AlarmEntity() {}
@@ -99,5 +102,13 @@ public class AlarmEntity {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

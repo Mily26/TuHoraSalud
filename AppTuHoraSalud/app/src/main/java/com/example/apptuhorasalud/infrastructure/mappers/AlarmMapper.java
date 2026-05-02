@@ -14,7 +14,8 @@ public class AlarmMapper {
                 model.getHour(),
                 model.getMinute(),
                 model.getUserId(),
-                model.isDeleted()
+                model.isDeleted(),
+                model.isActive()
         );
     }
 
@@ -28,7 +29,8 @@ public class AlarmMapper {
                 entity.getHour(),
                 entity.getMinute(),
                 entity.getUserId(),
-                entity.isDeleted()
+                entity.isDeleted(),
+                entity.isActive()
         );
     }
 }

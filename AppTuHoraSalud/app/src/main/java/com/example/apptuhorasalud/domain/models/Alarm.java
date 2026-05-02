@@ -9,8 +9,9 @@ public class Alarm {
     private int minute;
     private int userId;
     private boolean isDeleted;
+    private boolean isActive;
 
-    public Alarm(int id, int medicineId, String medicineName, String dose, int hour, int minute, int userId, boolean isDeleted) {
+    public Alarm(int id, int medicineId, String medicineName, String dose, int hour, int minute, int userId, boolean isDeleted, boolean isActive) {
         this.id = id;
         this.medicineId = medicineId;
         this.medicineName = medicineName;
@@ -19,6 +20,11 @@ public class Alarm {
         this.minute = minute;
         this.userId = userId;
         this.isDeleted = isDeleted;
+        this.isActive = isActive;
+    }
+
+    public Alarm(int id, int medicineId, String medicineName, String dose, int hour, int minute, int userId, boolean isDeleted) {
+        this(id, medicineId, medicineName, dose, hour, minute, userId, isDeleted, true);
     }
 
     public int getId() {
@@ -83,5 +89,13 @@ public class Alarm {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
