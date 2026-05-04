@@ -37,6 +37,11 @@ public class AlarmRepositoryImpl implements IAlarmRepository {
     }
 
     @Override
+    public CompletableFuture<Void> deleteAlarm(int alarmId) {
+        return CompletableFuture.runAsync(() -> dao.softDelete(alarmId), executor);
+    }
+
+    @Override
     public CompletableFuture<List<Alarm>> getAlarmsByUserId(int userId) {
         return CompletableFuture.supplyAsync(() -> {
             List<AlarmEntity> entities = dao.getAlarmsByUserId(userId);

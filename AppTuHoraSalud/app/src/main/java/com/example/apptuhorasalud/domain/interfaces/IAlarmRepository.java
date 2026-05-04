@@ -9,5 +9,6 @@ public interface IAlarmRepository {
     CompletableFuture<Long> addAlarm(Alarm alarm);
     CompletableFuture<Void> updateAlarm(Alarm alarm);
     CompletableFuture<Void> setAlarmActive(int alarmId, boolean isActive);
+    CompletableFuture<Void> deleteAlarm(int alarmId);
     CompletableFuture<List<Alarm>> getAlarmsByUserId(int userId);
 }

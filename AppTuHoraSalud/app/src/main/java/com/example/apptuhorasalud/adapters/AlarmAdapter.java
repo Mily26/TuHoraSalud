@@ -25,12 +25,18 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         void onToggle(Alarm alarm);
     }
 
+    public interface OnAlarmDeleteListener {
+        void onDelete(Alarm alarm);
+    }
+
     private List<Alarm> alarmList;
     private final OnAlarmToggleListener toggleListener;
+    private final OnAlarmDeleteListener deleteListener;
 
-    public AlarmAdapter(List<Alarm> alarmList, OnAlarmToggleListener toggleListener) {
+    public AlarmAdapter(List<Alarm> alarmList, OnAlarmToggleListener toggleListener, OnAlarmDeleteListener deleteListener) {
         this.alarmList = alarmList;
         this.toggleListener = toggleListener;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -78,6 +84,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             intent.putExtra("isActive", alarm.isActive());
             context.startActivity(intent);
         });
+
+        holder.btnDeleteAlarm.setOnClickListener(v -> {
+            if (deleteListener != null) {
+                deleteListener.onDelete(alarm);
+            }
+        });
     }
 
     @Override
@@ -92,7 +104,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     static class AlarmViewHolder extends RecyclerView.ViewHolder {
         TextView tvAlarmMedicine, tvAlarmDose, tvAlarmTime, tvAlarmStatus;
-        Button btnUpdateAlarm, btnToggleAlarm;
+        Button btnUpdateAlarm, btnToggleAlarm, btnDeleteAlarm;
 
         public AlarmViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +114,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             tvAlarmStatus = itemView.findViewById(R.id.tvAlarmStatus);
             btnUpdateAlarm = itemView.findViewById(R.id.btnUpdateAlarm);
             btnToggleAlarm = itemView.findViewById(R.id.btnToggleAlarm);
+            btnDeleteAlarm = itemView.findViewById(R.id.btnDeleteAlarm);
         }
     }
 }

@@ -21,6 +21,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/layoutAlarmFilters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlarmsTitle">
+
+        <EditText
+            android:id="@+id/etFilterMedicineName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Buscar medicamento"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#0D47A1"
+            android:textColorHint="#90A4AE" />
+
+        <Spinner
+            android:id="@+id/spinnerFilterStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvEmptyAlarms"
         android:layout_width="wrap_content"
@@ -32,7 +61,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlarmsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutAlarmFilters" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAlarms"
@@ -43,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonMedicine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlarmsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutAlarmFilters" />
 
     <Button
         android:id="@+id/buttonMedicine"

@@ -79,9 +79,19 @@
             android:id="@+id/btnUpdateAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#278EF5"
             android:minHeight="48dp"
             android:text="Editar"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnDeleteAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#B71C1C"
+            android:minHeight="48dp"
+            android:text="Eliminar"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
